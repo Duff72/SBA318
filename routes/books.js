@@ -35,12 +35,6 @@ router
     if (title) book.title = title;
     if (author) book.author = author;
     res.json(book);
-  })
-  .patch((req, res) => {
-    res.send("Patch request received");
-  })
-  .delete((req, res) => {
-    res.send("Delete request received");
   });
 
 module.exports = router;
