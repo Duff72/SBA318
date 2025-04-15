@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const PORT = 3000;
 
-const usersRouter = require(`./routes/users`);
+const booksRouter = require(`./routes/books`);
+const moviesRouter = require(`./routes/movies`);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ extended: true }));
@@ -24,7 +25,15 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(`/api/users`, usersRouter);
+app.use(express.json());
+
+app.use(`/api/books`, booksRouter);
+app.use(`/api/movies`, moviesRouter);
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: "Something went wrong!" });
+});
 
 app.get("/", (req, res) => {
   res.send("Welcome to the API");
